@@ -1,0 +1,6 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.easyb</groupId>
+  <artifactId>grails-easyb</artifactId>
+  <version>1.1</version>
+</project>

@@ -1,0 +1,15 @@
+<plugin name='easyb' version='1.1' grailsVersion='1.1 &gt; *'>
+  <author>Richard Vowles, Gustavo Madruga</author>
+  <authorEmail>richard@bluetrainsoftware.com</authorEmail>
+  <title>Allows Grails applications to write unit, integration and functional tests. Integrates Grails unit testing features</title>
+  <description>\
+Groovy testing implementation of easyb - exposes all of the easyb functionality and an infrastructure to expose more testing functionality.
+</description>
+  <documentation>http://grails.org/Easyb+Plugin</documentation>
+  <resources>
+  </resources>
+  <dependencies>
+    <resolvers />
+  </dependencies>
+  <behavior />
+</plugin>

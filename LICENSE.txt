@@ -1,0 +1,2 @@
+easyb is distributed under the MIT license, which basically means distribution, usage, modifying, etc is easy. 
+grails-easyb is also distributed under the MIT license
