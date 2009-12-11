@@ -9,6 +9,7 @@ import grails.plugin.easyb.test.report.EasybReportsFactory
 import org.easyb.BehaviorStep
 import org.codehaus.groovy.grails.test.plugin.easyb.InjectTestRunnerFactory
 import org.codehaus.groovy.grails.test.plugin.easyb.InjectTestRunner
+import org.easyb.util.BehaviorStepType
 
 public class GrailsEasybListener extends ResultsCollector {
     final protected GrailsTestEventPublisher eventPublisher
@@ -82,8 +83,8 @@ public class GrailsEasybListener extends ResultsCollector {
         steps.push(step)
         currentStep = step
 
-        switch ( step.getStepType() ) {
-            case BehaviorStepType.EXECUTE: {
+        switch (step.getStepType()) {
+            case BehaviorStepType.EXECUTE:
                 currentBehaviour.binding.grailsTest = { String name, style = null ->
                     dynamicallyInjectGrailsTest( style, name );
                 }
@@ -92,14 +93,12 @@ public class GrailsEasybListener extends ResultsCollector {
                     testRunner.injectMethods(currentBehaviour.binding)
                 }
                 break
-            }
             case BehaviorStepType.IT:
-            case BehaviorStepType.SCENARIO: {
+            case BehaviorStepType.SCENARIO:
                 if(testRunner) {
                     testRunner.setUp()
                 }
                 break
-            }
         }
     }
 
@@ -110,12 +109,11 @@ public class GrailsEasybListener extends ResultsCollector {
         switch(step.getStepType()) {
             case BehaviorStepType.EXECUTE: break
             case BehaviorStepType.IT:
-            case BehaviorStepType.SCENARIO: {
+            case BehaviorStepType.SCENARIO:
                 if(testRunner != null) {
                     testRunner.tearDown()
                 }
                 break
-            }
         }
     }
 
