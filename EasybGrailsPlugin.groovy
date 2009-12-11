@@ -1,10 +1,9 @@
 class EasybGrailsPlugin {
-    // the plugin version
-    def version = "1.2"
-    // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "1.1 > *"
-    // the other plugins this plugin depends on
-    def dependsOn = [:]
+    def version = "1.3"
+    def grailsVersion = "1.2.0.RC1 > *"
+    def environments = ['test']
+    def scopes = [excludes:'war']
+    def dependsOn = [core:'1.2.0.RC1 > *']
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/conf/*",
@@ -14,15 +13,7 @@ class EasybGrailsPlugin {
             "web-app/**",
             "grails-app/views/**"
     ]
-    def environments = ['test']
-    def scopes = [excludes:'war']
-    def jarExcludes = [ "default", "com\\.bluetrainsoftware\\..*" ]
-    def jarGroupId = "org.easyb"
-    def jarArtifactId = "grails-easyb"
-
 	
-    // inject code by Jeffrey Erikson
-
     def author = "Richard Vowles, Gustavo Madruga"
     def authorEmail = "richard@bluetrainsoftware.com"
     def title = "Allows Grails applications to write unit, integration and functional tests. Integrates Grails unit testing features"
