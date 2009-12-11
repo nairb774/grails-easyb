@@ -1,7 +1,6 @@
 package org.codehaus.groovy.grails.test.plugin.easyb
 
 import grails.util.BuildSettings
-import org.codehaus.groovy.grails.test.PotentialTest
 import org.springframework.core.io.Resource
 
 /**
@@ -21,12 +20,12 @@ public class GrailsEasybTestHelper {
 
     private ClassLoader currentClassLoader
 
-    GrailsEasybTestHelper (BuildSettings settings, ClassLoader classLoader, Closure resourceResolver) {
+    GrailsEasybTestHelper(BuildSettings settings, ClassLoader classLoader, Closure resourceResolver) {
         this.baseDir = settings.baseDir
         this.testClassesDir = settings.testClassesDir
         this.parentLoader = classLoader
         this.resourceResolver = resourceResolver
-      
+
     }
 
     List<String> createTests(List<String> testNames, String type) {
@@ -34,24 +33,24 @@ public class GrailsEasybTestHelper {
         def testSuite = []
 
         currentClassLoader = createClassLoader(type)
-        
+
         def resources = []
-        
-        if ( testNames.size() == 1 && testNames[0] == "**.*" ) {
-          testNames = ["**"]
+
+        if (testNames.size() == 1 && testNames[0] == "**.*") {
+            testNames = ["**"]
         }
-        
-        if ( testNames ) {        
-          testSuffixes.each { testSuffix ->
-            testNames.each { filePattern ->
-              resources += resourceResolver("file:${testSrcDir}/${filePattern}${testSuffix}.groovy") as List
-              resources += resourceResolver("file:${testSrcDir}/${filePattern}.${testSuffix.toLowerCase()}") as List
+
+        if (testNames) {
+            testSuffixes.each {testSuffix ->
+                testNames.each {filePattern ->
+                    resources += resourceResolver("file:${testSrcDir}/${filePattern}${testSuffix}.groovy") as List
+                    resources += resourceResolver("file:${testSrcDir}/${filePattern}.${testSuffix.toLowerCase()}") as List
+                }
             }
-          }
         }
-        
-        resources.findAll { it.exists() }.each { Resource resource ->
-          println "adding test ${resource.file.path} for processing"
+
+        resources.findAll { it.exists() }.each {Resource resource ->
+            println "adding test ${resource.file.path} for processing"
             testSuite.add(resource.file.path)
         }
 /*        def nonMethodTests = potentialTests.findAll { !it.hasMethodName() }
@@ -71,24 +70,24 @@ public class GrailsEasybTestHelper {
     }
 
     String fileToClassName(File file, String type, String replaceFilename) {
-      String classpath = fileToClassName(file, new File( baseDir, "test/${type}" ) )
-      
-      if ( Character.isLowerCase( replaceFilename.charAt(0) ) )
-        replaceFilename = replaceFilename.substring(0,1).toUpperCase() + replaceFilename.substring( 1 )
+        String classpath = fileToClassName(file, new File(baseDir, "test/${type}"))
 
-      int lastIndexOf = classpath.lastIndexOf( '.' )
+        if (Character.isLowerCase(replaceFilename.charAt(0)))
+        replaceFilename = replaceFilename.substring(0, 1).toUpperCase() + replaceFilename.substring(1)
 
-      if ( lastIndexOf >= 0 ) {
-        classpath = classpath.substring( 0, lastIndexOf  ) + replaceFilename
-      } else {
-        classpath = replaceFilename
-      }
-      
-      return classpath
+        int lastIndexOf = classpath.lastIndexOf('.')
+
+        if (lastIndexOf >= 0) {
+            classpath = classpath.substring(0, lastIndexOf) + replaceFilename
+        } else {
+            classpath = replaceFilename
+        }
+
+        return classpath
     }
 
     String fileToClassName(File file, String type) {
-      return fileToClassName(file, new File( baseDir, "test/${type}" ) )
+        return fileToClassName(file, new File(baseDir, "test/${type}"))
     }
 
     /**
@@ -101,7 +100,7 @@ public class GrailsEasybTestHelper {
     String fileToClassName(File file, File baseDir) {
         def filePath = file.canonicalFile.absolutePath
         def basePath = baseDir.canonicalFile.absolutePath
-        if(!filePath.startsWith(basePath)) {
+        if (!filePath.startsWith(basePath)) {
             throw new IllegalArgumentException("File path (${filePath}) is not descendent of base path (${basePath}).")
         }
 

@@ -6,45 +6,47 @@
 package org.codehaus.groovy.grails.test.plugin.easyb.unit
 
 import grails.test.TagLibUnitTestCase
-import org.slf4j.LoggerFactory;
+import org.codehaus.groovy.grails.test.plugin.easyb.unit.InjectMvcTestRunner
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * doesn't actually do anything over and above the Mvc class other than load the TagLib
  */
 
-public class InjectTaglibTestRunner  extends InjectMvcTestRunner {
-  private static final org.slf4j.Logger log = LoggerFactory.getLogger(InjectTaglibTestRunner)
+public class InjectTaglibTestRunner extends InjectMvcTestRunner {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(InjectTaglibTestRunner)
 
-  public InjectTaglibTestRunner(String fullPathClassName) {
-    super( fullPathClassName )
-  }
-
-  protected void initialize() {
-  	log.debug "init: taglib test runner"
-  	runnerType = "Taglib for ${fullPathClassName} "
-    try {
-      this.testCase = new TagLibUnitTestCase(getMvcClass("TagLib"))
-    } catch ( Exception ex ) {
-      log.error( "failed to initialize test case, taglib does not exist", ex );
+    public InjectTaglibTestRunner(String fullPathClassName) {
+        super(fullPathClassName)
     }
-  }
 
-  public void injectMethods(Binding binding) {
-    super.injectMethods( binding )
-  }
+    protected void initialize() {
+        log.debug "init: taglib test runner"
+        runnerType = "Taglib for ${fullPathClassName} "
+        try {
+            this.testCase = new TagLibUnitTestCase(getMvcClass("TagLib"))
+        } catch (Exception ex) {
+            log.error("failed to initialize test case, taglib does not exist", ex);
+        }
+    }
 
-   public void setUp() {
-    super.setUp()
+    public void injectMethods(Binding binding) {
+        super.injectMethods(binding)
+    }
 
-    if ( testCase )
-      binding.tagLib = testCase.tagLib
-  }
+    public void setUp() {
+        super.setUp()
+
+        if (testCase)
+        binding.tagLib = testCase.tagLib
+    }
 
 
-  public void tearDown() {
-    super.tearDown()
+    public void tearDown() {
+        super.tearDown()
 
-    if ( testCase )
-      binding.tagLib = null
-  }
+        if (testCase)
+        binding.tagLib = null
+    }
 }
