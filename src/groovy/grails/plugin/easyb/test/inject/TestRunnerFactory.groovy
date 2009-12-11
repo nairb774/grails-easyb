@@ -1,6 +1,7 @@
-package org.codehaus.groovy.grails.test.plugin.easyb;
+package grails.plugin.easyb.test.inject;
 
-import org.easyb.domain.Behavior;
+import org.easyb.domain.Behavior
+import grails.plugin.easyb.test.GrailsEasybTestType
 
 /**
  * User: richard
@@ -11,10 +12,10 @@ public interface TestRunnerFactory {
      * always called before attempting to call any other functions
      *
      * @param currentBehaviour
-     * @param type
+     * @param gett
      * @return
      */
-    boolean willRespond(Behavior currentBehaviour, String type);
+    boolean willRespond(Behavior currentBehaviour, GrailsEasybTestType gett);
 
     /**
      * this method is used on initial load (startBehavior) of the behavior - and determines automatically which test case type to
@@ -22,11 +23,10 @@ public interface TestRunnerFactory {
      *
      * @param expectedMatchingGrailsClass
      * @param currentBehaviour
-     * @param testHelper
-     * @param type
+     * @param gett
      * @return
      */
-    InjectTestRunner findMatchingRunner(String expectedMatchingGrailsClass, Behavior currentBehaviour, GrailsEasybTestHelper testHelper, String type);
+    InjectTestRunner findMatchingRunner(String expectedMatchingGrailsClass, Behavior currentBehaviour, GrailsEasybTestType gett);
 
     /**
      * this is used by grailsTest style, name - such as grailsTest "controller", "Person" - would cause this to try and load a PersonController using the same package
@@ -36,17 +36,16 @@ public interface TestRunnerFactory {
      * @param name
      * @param expectedMatchingGrailsClass
      * @param currentBehavior
-     * @param testType
-     * @param testHelper
+     * @param gett
      * @return
      */
-    InjectTestRunner findDynamicRunner(String style, String name, String expectedMatchingGrailsClass, Behavior currentBehavior, String testType, GrailsEasybTestHelper testHelper);
+    InjectTestRunner findDynamicRunner(String style, String name, String expectedMatchingGrailsClass, Behavior currentBehavior, GrailsEasybTestType gett);
 
     /**
      * if we don't find a specific matching runner or if the initialize fails, then we need to go back and ask for a default runner for this type. For unit it will be InjectGrailsTestRunner
      *
-     * @param type
+     * @param gett
      * @return
      */
-    InjectTestRunner getDefaultTestRunner(String type);
+    InjectTestRunner getDefaultTestRunner(GrailsEasybTestType gett);
 }

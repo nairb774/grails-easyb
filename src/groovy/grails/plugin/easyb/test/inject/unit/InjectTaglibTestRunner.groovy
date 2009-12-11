@@ -3,10 +3,10 @@
  * Date: Jun 9, 2009
  * Time: 11:08:46 PM
  */
-package org.codehaus.groovy.grails.test.plugin.easyb.unit
+package grails.plugin.easyb.test.inject.unit
 
 import grails.test.TagLibUnitTestCase
-import org.codehaus.groovy.grails.test.plugin.easyb.unit.InjectMvcTestRunner
+import grails.plugin.easyb.test.inject.unit.InjectMvcTestRunner
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

@@ -11,9 +11,15 @@ import org.easyb.Configuration
 public class GrailsEasybTestType extends GrailsTestTypeSupport {
 
     protected final List<Class> easybFiles = []
+    public final String testType
 
     GrailsEasybTestType(String name, String relativeSourcePath) {
         super(name, relativeSourcePath)
+        testType = relativeSourcePath
+    }
+
+    public String sourceFileToClassName(File source) {
+        return super.sourceFileToClassName(source)
     }
 
     /**
@@ -39,17 +45,17 @@ public class GrailsEasybTestType extends GrailsTestTypeSupport {
      * @return the test results encapsulated by GrailsTestTypeResult
      */
     protected GrailsTestTypeResult doRun(GrailsTestEventPublisher grailsTestEventPublisher) {
-        def easybListener = new GrailsEasybListener(grailsTestEventPublisher, createEasybReportsFactory(), createSystemOutAndErrSwapper())
+        def easybListener = new GrailsEasybListener(grailsTestEventPublisher, createEasybReportsFactory(), createSystemOutAndErrSwapper(), this)
         def easybRunner = new BehaviorRunner(new Configuration(), easybListener)
         easybRunner.runBehaviors(BehaviorRunner.getBehaviors(easybFiles as String[]))
         return new GrailsEasybTestTypeResult(easybListener)
     }
 
-    protected List<String> getTestExtensions() {
+    public List<String> getTestExtensions() {
         return ["groovy"]
     }
 
-    protected List<String> getTestSuffixes() {
+    public List<String> getTestSuffixes() {
         return ["Story", "Specification"]
     }
 

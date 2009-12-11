@@ -4,9 +4,9 @@
  * Date: Jun 9, 2009
  * Time: 11:16:30 PM
  */
-package org.codehaus.groovy.grails.test.plugin.easyb.unit
+package grails.plugin.easyb.test.inject.unit
 
-import org.codehaus.groovy.grails.test.plugin.easyb.unit.InjectGrailsTestRunner
+import grails.plugin.easyb.test.inject.unit.InjectGrailsTestRunner
 
 /**
  * only deals with setUp and tearDown
