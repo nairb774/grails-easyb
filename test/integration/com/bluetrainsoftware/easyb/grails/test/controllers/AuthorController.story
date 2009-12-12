@@ -7,7 +7,7 @@ import com.bluetrainsoftware.easyb.grails.test.domain.*;
 scenario "We should be able to mock the controller", {
 	given "a mocked domain of authors", {
 		new Author(name:'Terry').save()
-    new Author(name:'Ernest').save()
+        new Author(name:'Ernest').save()
 	}
 	and "we have a controller", {
 	  controller = new AuthorController()
@@ -21,8 +21,9 @@ scenario "We should be able to mock the controller", {
 		authors[0].size().shouldBe 2
 		def titles = authors[0].collect { author -> author.name }
 		ensure(titles) { 
-				contains("Terry") 
-				and 
-				contains("Ernest") }
-	}
+            contains("Terry")
+            and
+            contains("Ernest")
+        }
+    }
 }
