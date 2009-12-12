@@ -11,7 +11,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 public class InjectControllerTestRunner extends InjectMvcTestRunner {
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(InjectControllerTestRunner)
+    private static final Logger log = LoggerFactory.getLogger(InjectControllerTestRunner)
 
     public InjectControllerTestRunner(String fullPathClassName) {
         super(fullPathClassName)
