@@ -69,8 +69,8 @@ public class InjectControllerTestRunner extends InjectMvcTestRunner {
 
         assert binding != null
 
-        if (testCase && binding)
-        binding.setVariable("controller", null)
+        if (testCase && binding) {
+            binding.setVariable("controller", null)
+        }
     }
-
 }
