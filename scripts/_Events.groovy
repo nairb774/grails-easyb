@@ -19,6 +19,10 @@ eventAllTestsStart = {
     unitTests << easybTestTypeClass.newInstance('easyb', 'unit')
     integrationTests << easybTestTypeClass.newInstance('easyb', 'integration')
     functionalTests << easybTestTypeClass.newInstance('easyb', 'functional')
+
+    // register Injectors
+    classLoader.loadClass("grails.plugin.easyb.test.inject.InjectTestRunnerFactory").getMethod("registerExternalFactory", [classLoader.loadClass("grails.plugin.easyb.test.inject.TestRunnerFactory")] as Class[]).invoke(null, [classLoader.loadClass("grails.plugin.easyb.test.inject.unit.InjectUnitTestRunnerFactory").newInstance()] as Object[])
+    classLoader.loadClass("grails.plugin.easyb.test.inject.InjectTestRunnerFactory").getMethod("registerExternalFactory", [classLoader.loadClass("grails.plugin.easyb.test.inject.TestRunnerFactory")] as Class[]).invoke(null, [classLoader.loadClass("grails.plugin.easyb.test.inject.integration.InjectIntegrationTestRunnerFactory").newInstance()] as Object[])
 }
 
 // I believe that we do not need this

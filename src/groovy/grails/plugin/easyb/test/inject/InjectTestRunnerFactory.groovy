@@ -34,7 +34,6 @@ public class InjectTestRunnerFactory {
      * can return null, no matching runner for test type
      */
     public static InjectTestRunner findMatchingRunner(Behavior currentBehaviour, GrailsEasybTestType gett) {
-
         String classpath = getExpectedClasspath(gett, currentBehaviour, gett.testType)
 
         InjectTestRunner matchingRunner = null

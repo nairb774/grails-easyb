@@ -1,4 +1,4 @@
-package grails.plugin.easyb.test.inject;
+package grails.plugin.easyb.test.inject
 
 import org.easyb.domain.Behavior
 import grails.plugin.easyb.test.GrailsEasybTestType
