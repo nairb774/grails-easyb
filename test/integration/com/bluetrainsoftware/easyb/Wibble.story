@@ -9,6 +9,6 @@ scenario "controller should exist as a variable", {
 		new Author(name:'Terry').save()
 	}
 	then "we should be able to ask the controller for one", {
-		controller.list.size.shouldBe 1
+		controller.list().size.shouldBe 1
 	}
 }
