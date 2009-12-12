@@ -22,8 +22,9 @@ scenario "We should be able to mock the controller", {
 		authors[0].size().shouldBe 2
 		def titles = authors[0].collect { author -> author.name }
 		ensure(titles) { 
-				contains("Terry") 
-				and 
-				contains("Ernest") }
+            contains("Terry")
+            and
+            contains("Ernest") 
+        }
 	}
 }

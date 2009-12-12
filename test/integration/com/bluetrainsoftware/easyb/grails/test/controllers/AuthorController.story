@@ -10,7 +10,7 @@ scenario "We should be able to mock the controller", {
         new Author(name:'Ernest').save()
 	}
 	and "we have a controller", {
-	  controller = new AuthorController()
+	    controller = new AuthorController()
 	}
 	when "when we make a request of the controller", {
 		authors = controller.list()		
