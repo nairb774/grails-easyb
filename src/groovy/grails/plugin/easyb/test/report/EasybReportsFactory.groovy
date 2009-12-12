@@ -35,26 +35,12 @@ public class EasybReportsFactory {
     protected def createReport() {
         def reportsWriter = []
 
-        def htmlFileSource = "$reportsDir/html/easyb-${phaseName}.html"
+        reportsWriter << new HtmlReportWriter(location: "$reportsDir/html/easyb-${phaseName}.html")
+        reportsWriter << new TxtStoryReportWriter(location: "$reportsDir/plain/easyb-stories-${phaseName}.txt")
+        reportsWriter << new TxtSpecificationReportWriter(location: "$reportsDir/plain/easyb-specifications-${phaseName}.txt")
+        //TODO grails core dont create reportsDir/xml, so this results in exception, fix somehow
+        //reportsWriter << new XmlReportWriter(location: "$reportsDir/xml/easyb-${phaseName}.xml")
 
-        reportsWriter << new HtmlReportWriter(location: htmlFileSource)
-        //TODO fix formatting part hard coded on grails test
-        // report format still hardcorer, so for easyb is best to keep with HTML report which is the one often used
-        /*
-        formats.each { format ->
-            switch(format) {
-                case EasybReportsFactory.PLAIN:
-                    reportsWriter << new TxtStoryReportWriter(location: "$reportsDir/plain/easyb-stories-${phaseName}.txt")
-                    reportsWriter << new TxtSpecificationReportWriter(location: "$reportsDir/plain/easyb-specifications-${phaseName}.txt")
-                    break;
-                case EasybReportsFactory.HTML:
-                    reportsWriter << new HtmlReportWriter(location: "$reportsDir/html/easyb-${phaseName}.html")
-                    break;
-                case EasybReportsFactory.XML:
-                    reportsWriter << new XmlReportWriter(location: "$reportsDir/xml/easyb-${phaseName}.xml")
-                    break;
-            }
-        }*/
         return reportsWriter
     }
 
