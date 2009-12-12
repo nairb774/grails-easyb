@@ -7,6 +7,7 @@ import org.easyb.BehaviorRunner
 import grails.plugin.easyb.test.listener.GrailsEasybListener
 import grails.plugin.easyb.test.report.EasybReportsFactory
 import org.easyb.Configuration
+import org.easyb.domain.BehaviorFactory
 
 public class GrailsEasybTestType extends GrailsTestTypeSupport {
 
@@ -31,8 +32,9 @@ public class GrailsEasybTestType extends GrailsTestTypeSupport {
             findSource(testTargetPattern).each { sourceResource ->
                 def easybSourceFile = sourceResource.file
 
-                //TODO implement a isEasyb() something to avoid conflict with grails-spock *.Specification
-                /*if (specFinder.isSpec(easybSourceFile))*/ easybFiles << easybSourceFile
+                if (isEasybSourceFile(easybSourceFile)) {
+                    easybFiles << easybSourceFile
+                }
             }
         }
 
@@ -52,14 +54,37 @@ public class GrailsEasybTestType extends GrailsTestTypeSupport {
     }
 
     public List<String> getTestExtensions() {
-        return ["groovy"]
+        return ["groovy", "story", "specification"]
     }
 
     public List<String> getTestSuffixes() {
-        return ["Story", "Specification"]
+        return ["*"]
     }
 
     EasybReportsFactory createEasybReportsFactory() {
         EasybReportsFactory.createFromBuildBinding(buildBinding)
+    }
+
+    /**
+     * Verifies if the given file is an easyb test file.
+     * @param file the file to test if is an easyb source file
+     * @return true if is easyb source file, false otherwise
+     */
+    private boolean isEasybSourceFile(File file) {
+        def boolean isValidExtension = file.absolutePath.endsWith(".specification") ||
+                file.absolutePath.endsWith(".story") ||
+                file.absolutePath.endsWith("Story.groovy") ||
+                file.absolutePath.endsWith("Specification.groovy")
+
+        if(!isValidExtension) {
+            return false
+        }
+
+        try {
+            BehaviorFactory.createBehavior(file)
+            return true
+        } catch (e) {
+            return false
+        }
     }
 }

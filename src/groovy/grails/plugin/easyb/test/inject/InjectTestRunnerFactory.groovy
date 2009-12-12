@@ -19,14 +19,6 @@ public class InjectTestRunnerFactory {
     private static String getExpectedClasspath(GrailsEasybTestType gett, Behavior currentBehaviour, String name = null) {
         String expectedMatchingGrailsClass
 
-        //TODO test this if its ok
-        /*if (!name) {
-            expectedMatchingGrailsClass = testHelper.fileToClassName(currentBehaviour.file, gett.testType)
-        } else if (name.toString().indexOf('.') == -1) {
-            expectedMatchingGrailsClass = testHelper.fileToClassName(currentBehaviour.file, gett.testType, name)
-        }*/
-        
-        println "name: $name"
         expectedMatchingGrailsClass = gett.sourceFileToClassName(currentBehaviour.file)
 
         gett.getTestSuffixes().each {String ending ->
