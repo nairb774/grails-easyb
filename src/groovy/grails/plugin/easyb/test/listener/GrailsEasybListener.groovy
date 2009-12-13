@@ -42,6 +42,7 @@ public class GrailsEasybListener extends ResultsCollector {
     @Override
     public void startBehavior(Behavior behavior) {
         super.startBehavior(behavior)
+
         eventPublisher.testCaseStart(trucateEventName(behavior.phrase))
 
         currentBehaviour = behavior
@@ -71,6 +72,7 @@ public class GrailsEasybListener extends ResultsCollector {
     @Override
     public void stopBehavior(BehaviorStep behaviorStep, Behavior behavior) {
         super.stopBehavior(behaviorStep, behavior)
+
         eventPublisher.testCaseEnd(trucateEventName(behavior.phrase))
 
         currentBehaviour = null
@@ -84,6 +86,7 @@ public class GrailsEasybListener extends ResultsCollector {
     @Override
     public synchronized void startStep(BehaviorStep behaviorStep) {
         super.startStep(behaviorStep)
+
         currentStep = behaviorStep
         steps.push(behaviorStep)
         eventPublisher.testStart(trucateEventName(behaviorStep.name))
@@ -109,6 +112,8 @@ public class GrailsEasybListener extends ResultsCollector {
 
     @Override
     public void stopStep() {
+        super.stopStep()
+
         BehaviorStep step = steps.pop()
 
         switch(step.getStepType()) {
@@ -148,6 +153,7 @@ public class GrailsEasybListener extends ResultsCollector {
     @Override
     public void completeTesting() {
         super.completeTesting()
+
         reportsFactory.produceReports(this)
     }
 
