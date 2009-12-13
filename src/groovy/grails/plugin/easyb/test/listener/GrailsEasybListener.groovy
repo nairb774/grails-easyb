@@ -85,10 +85,8 @@ public class GrailsEasybListener extends ResultsCollector {
     public synchronized void startStep(BehaviorStep behaviorStep) {
         super.startStep(behaviorStep)
         currentStep = behaviorStep
-        eventPublisher.testStart(trucateEventName(behaviorStep.name))
-
         steps.push(behaviorStep)
-        currentStep = behaviorStep
+        eventPublisher.testStart(trucateEventName(behaviorStep.name))
 
         switch (behaviorStep.getStepType()) {
             case BehaviorStepType.EXECUTE:
@@ -180,7 +178,7 @@ public class GrailsEasybListener extends ResultsCollector {
             testRunner.injectMethods(currentBehaviour.binding)
 
             // we have missed the start of the scenario or specification as well, so we need to inject the setup
-            if(currentStep.stepType == BehaviorStepType.IT || BehaviorStepType.SCENARIO) {
+            if(currentStep.stepType == BehaviorStepType.IT || currentStep.stepType == BehaviorStepType.SCENARIO) {
                 testRunner.setUp()
             }
         }
