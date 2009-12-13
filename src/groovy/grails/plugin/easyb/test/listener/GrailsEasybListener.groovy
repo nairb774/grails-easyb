@@ -58,9 +58,7 @@ public class GrailsEasybListener extends ResultsCollector {
             if (testRunner.testCase == null) {
                 log.warn "Unable to create expected test runner ${testRunner.runnerType}, using default instead"
                 testRunner = InjectTestRunnerFactory.getDefault(currentBehaviour, grailsEasybTestType)
-                if (testRunner) {
-                    testRunner.initialize()
-                }
+                testRunner?.initialize()
             }
         }
     }
@@ -87,9 +85,10 @@ public class GrailsEasybListener extends ResultsCollector {
     public synchronized void startStep(BehaviorStep behaviorStep) {
         super.startStep(behaviorStep)
 
+        eventPublisher.testStart(trucateEventName(behaviorStep.name))
+
         currentStep = behaviorStep
         steps.push(behaviorStep)
-        eventPublisher.testStart(trucateEventName(behaviorStep.name))
 
         switch (behaviorStep.getStepType()) {
             case BehaviorStepType.EXECUTE:
@@ -97,15 +96,11 @@ public class GrailsEasybListener extends ResultsCollector {
                     dynamicallyInjectGrailsTest(style, name);
                 }
 
-                if(testRunner) {
-                    testRunner.injectMethods(currentBehaviour.binding)
-                }
+                testRunner?.injectMethods(currentBehaviour.binding)
                 break
             case BehaviorStepType.IT:
             case BehaviorStepType.SCENARIO:
-                if(testRunner) {
-                    testRunner.setUp()
-                }
+                testRunner?.setUp()
                 break
         }
     }
@@ -117,12 +112,9 @@ public class GrailsEasybListener extends ResultsCollector {
         BehaviorStep step = steps.pop()
 
         switch(step.getStepType()) {
-            case BehaviorStepType.EXECUTE: break
             case BehaviorStepType.IT:
             case BehaviorStepType.SCENARIO:
-                if(testRunner != null) {
-                    testRunner.tearDown()
-                }
+                testRunner?.tearDown()
                 break
         }
     }
