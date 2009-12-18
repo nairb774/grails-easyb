@@ -29,11 +29,9 @@ public class GrailsEasybTestType extends GrailsTestTypeSupport {
      */
     protected int doPrepare() {
         testTargetPatterns.each { testTargetPattern ->
-            findSource(testTargetPattern).each { sourceResource ->
-                def easybSourceFile = sourceResource.file
-
-                if (isEasybSourceFile(easybSourceFile)) {
-                    easybFiles << easybSourceFile
+            findSourceFiles(testTargetPattern).each { file ->
+                if (isEasybSourceFile(file)) {
+                    easybFiles << file
                 }
             }
         }
