@@ -15,7 +15,7 @@
  */
 
 eventAllTestsStart = {
-    def easybTestTypeClass = classLoader.loadClass('grails.plugin.easyb.test.GrailsEasybTestType')
+    def easybTestTypeClass = loadTestTypeClass()
     unitTests << easybTestTypeClass.newInstance('easyb', 'unit')
     integrationTests << easybTestTypeClass.newInstance('easyb', 'integration')
     functionalTests << easybTestTypeClass.newInstance('easyb', 'functional')
@@ -25,11 +25,13 @@ eventAllTestsStart = {
     classLoader.loadClass("grails.plugin.easyb.test.inject.InjectTestRunnerFactory").getMethod("registerExternalFactory", [classLoader.loadClass("grails.plugin.easyb.test.inject.TestRunnerFactory")] as Class[]).invoke(null, [classLoader.loadClass("grails.plugin.easyb.test.inject.integration.InjectIntegrationTestRunnerFactory").newInstance()] as Object[])
 }
 
-// I believe that we do not need this
-/*
-eventTestPhaseStart = { phaseName ->
-    if (phaseName == 'functional') {
-        def functionalSpecificationClass = classLoader.loadClass("grails.plugin.easyb.EasybFunctionalSpecification")
-        functionalSpecificationClass.baseUrl = argsMap["baseUrl"] ?: "http://localhost:$serverPort$serverContextPath"
+loadTestTypeClass = { ->
+    def doLoad = { -> classLoader.loadClass('grails.plugin.easyb.test.GrailsEasybTestType') }
+    try {
+        doLoad()
+    } catch (ClassNotFoundException e) {
+        includeTargets << grailsScript("_GrailsCompile")
+        compile()
+        doLoad()
     }
-}*/
+}
