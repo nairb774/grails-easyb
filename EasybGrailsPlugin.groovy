@@ -1,6 +1,7 @@
 class EasybGrailsPlugin {
-    // the plugin version
-    def version = "1.3"
+    // Plugin version revved a major version as Grails 1.2 is not compatible with 1.1 for testing infrastructure, classes have gone AWOL
+    // so it won't even compile any longer
+    def version = "2.0"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0.RC1 > *"
     // the other plugins this plugin depends on
