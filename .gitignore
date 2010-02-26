@@ -2,7 +2,6 @@ tmp
 scriptCache
 .svn
 stacktrace.log
-*.zip
 easyb*.jar
 docs
 easyb.i*
