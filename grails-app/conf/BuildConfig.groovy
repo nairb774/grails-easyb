@@ -29,6 +29,6 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        build 'org.easyb:easyb:0.9.6'
+        build 'org.easyb:easyb:0.9.7'
     }
 }
