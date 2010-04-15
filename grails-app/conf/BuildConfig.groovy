@@ -26,6 +26,9 @@ grails.project.dependency.resolution = {
 
         mavenLocal()
         mavenCentral()
+
+        // easyb is on sonatype nexus as default since 0.9.7
+        mavenRepo "http://oss.sonatype.org/content/groups/public/"
     }
 
     dependencies {
