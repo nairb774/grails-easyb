@@ -9,6 +9,7 @@ import grails.test.ControllerUnitTestCase
 import grails.plugin.easyb.test.inject.unit.InjectMvcTestRunner
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import grails.test.MockUtils
 
 public class InjectControllerTestRunner extends InjectMvcTestRunner {
     private static final Logger log = LoggerFactory.getLogger(InjectControllerTestRunner)
@@ -33,9 +34,9 @@ public class InjectControllerTestRunner extends InjectMvcTestRunner {
         log.debug "now injecting controller methods"
 
         binding.mockCommandObject = {Class clazz ->
-            if (testCase)
-                testCase.mockCommandObject(clazz)
-            else
+            if (testCase) {
+              testCase.mockCommandObject(clazz)
+            } else
                 throw new RuntimeException("no test case associated with story/scenario")
         }
 
