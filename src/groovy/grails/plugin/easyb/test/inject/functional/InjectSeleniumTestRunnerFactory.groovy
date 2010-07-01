@@ -5,7 +5,7 @@ import grails.plugin.easyb.test.inject.TestRunnerFactory
 import org.easyb.domain.Behavior
 import grails.plugin.easyb.test.GrailsEasybTestType
 
-class InjectSeleniumTestRunnerFactory extends TestRunnerFactory {
+class InjectSeleniumTestRunnerFactory implements TestRunnerFactory {
     private static String pathPartMustExist = "test" + File.separator + "selenium"
 
     boolean willRespond(Behavior currentBehaviour, GrailsEasybTestType gett) {
