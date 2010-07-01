@@ -14,11 +14,13 @@ public class InjectSeleniumTestRunner extends InjectTestRunner {
     public void injectMethods(Binding binding) {
         super.injectMethods binding
 
-        def seleniumHolderClazz = Class.forName('grails.plugins.selenium.SeleniumHolder')
+        def seleniumHolderClazz = Thread.currentThread().contextClassLoader.loadClass('grails.plugins.selenium.SeleniumHolder')
 
         if(seleniumHolderClazz) {
             def selenium = seleniumHolderClazz.selenium
             binding.setVariable "selenium", selenium
+        } else {
+            println "You don't have selenium-rc plugin installed.\nRun: grails install-plugin selenium-rc"
         }
     }
 }
