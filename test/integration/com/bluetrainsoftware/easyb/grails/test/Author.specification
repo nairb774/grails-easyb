@@ -1,9 +1,7 @@
 package com.bluetrainsoftware.easyb.grails.test;
 
-import com.bluetrainsoftware.easyb.grails.test.domain.*;
-
 it "should be able to create and save an author", {
-    new Author(name:'Terry').save()
+    new com.bluetrainsoftware.easyb.grails.test.domain.Author(name:'Terry').save()
 }
 
 it "should not be able to mock author", {

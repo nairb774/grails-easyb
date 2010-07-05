@@ -32,6 +32,8 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        build 'org.easyb:easyb:0.9.7'
+        build ('org.easyb:easyb:0.9.7') {
+            excludes "commons-cli", "groovy-all"
+        }
     }
 }

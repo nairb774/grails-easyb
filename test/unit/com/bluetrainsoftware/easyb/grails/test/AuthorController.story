@@ -1,9 +1,16 @@
 package com.bluetrainsoftware.easyb.grails.test;
 
 import com.bluetrainsoftware.easyb.grails.test.domain.*;
-import com.bluetrainsoftware.easyb.grails.test.controllers.*;
 
 // this won't pick up the controller automatically, mock it and stick it in
+
+scenario "Controller won't be automatically inject because test it's not in correct package", {
+    then "controller variable should be null", {
+        ensureThrows(MissingPropertyException) {
+            controller.shoulbBe null
+        }
+    }
+}
 
 scenario "We should be able to mock the controller", {
 	given "a mocked domain of authors", {
@@ -13,7 +20,7 @@ scenario "We should be able to mock the controller", {
 		mockController( AuthorController )
 	}
 	when "when we make a request of the controller", {
-		controller = new AuthorController()
+		controller = new com.bluetrainsoftware.easyb.grails.test.controllers.AuthorController()
 		authors = controller.list()		
 	}
 	then "the controller should return a list of authors", {

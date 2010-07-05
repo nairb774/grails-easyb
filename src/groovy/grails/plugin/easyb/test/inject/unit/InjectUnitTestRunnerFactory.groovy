@@ -24,17 +24,7 @@ public class InjectUnitTestRunnerFactory implements TestRunnerFactory {
 
     @Override
     public InjectTestRunner findMatchingRunner(String expectedMatchingGrailsClass, Behavior currentBehaviour, GrailsEasybTestType gett) {
-        InjectTestRunner matchingRunner = null
-
-        String lowerName = expectedMatchingGrailsClass.toLowerCase();
-
-        if (lowerName.endsWith("controller")) {
-            matchingRunner = new InjectControllerTestRunner(expectedMatchingGrailsClass)
-        } else if (lowerName.endsWith("taglib")) {
-            matchingRunner = new InjectTaglibTestRunner(expectedMatchingGrailsClass)
-        } else if (lowerName.endsWith("gsp")) {
-            matchingRunner = new InjectGSPTestRunner()
-        }
+        InjectTestRunner matchingRunner = detectRunner(expectedMatchingGrailsClass)
 
         return matchingRunner
     }
@@ -47,6 +37,7 @@ public class InjectUnitTestRunnerFactory implements TestRunnerFactory {
     @Override
     public InjectTestRunner findDynamicRunner(String style, String name, String expectedMatchingGrailsClass, Behavior currentBehavior, GrailsEasybTestType gett) {
         InjectTestRunner testRunner = null
+        println "style: $style"
 
         if (!style || style == "domain") {
             testRunner = new InjectGrailsTestRunner()
@@ -72,5 +63,28 @@ public class InjectUnitTestRunnerFactory implements TestRunnerFactory {
         }
 
         return testRunner
+    }
+
+    private def detectRunner(className) {
+        if(className.endsWith("Controller")) {
+            return new InjectControllerTestRunner(className)
+        } else if(className.endsWith("Taglib")) {
+            return new InjectTaglibTestRunner(className)
+        } else if(className.endsWith("Gsp")) {
+            return new InjectGSPTestRunner(className)
+        } else if(className.endsWith("ControllerStory")) {
+            return new InjectControllerTestRunner(className.substring(0, className.indexOf("Story")))
+        } else if(className.endsWith("TaglibStory")) {
+            return new InjectTaglibTestRunner(className.substring(0, className.indexOf("Story")))
+        } else if(className.endsWith("GspStory")) {
+            return new InjectGSPTestRunner(className.substring(0, className.indexOf("Story")))
+        } else if(className.endsWith("ControllerSpecification")) {
+            return new InjectControllerTestRunner(className.substring(0, className.indexOf("Specification")))
+        } else if(className.endsWith("TaglibSpecification")) {
+            return new InjectTaglibTestRunner(className.substring(0, className.indexOf("Specification")))
+        } else if(className.endsWith("GspSpecification")) {
+            return new InjectGSPTestRunner(className.substring(0, className.indexOf("Specification")))
+        }
+        return null
     }
 }

@@ -17,14 +17,6 @@ Groovy testing implementation of easyb - exposes all of the easyb functionality 
     <resource>com.bluetrainsoftware.easyb.grails.test.domain.Book</resource>
     <resource>com.bluetrainsoftware.easyb.grails.test.service.AuthorService</resource>
   </resources>
-  <dependencies>
-    <resolvers>
-      <resolver type='grailsPlugins' name='grailsPlugins' />
-      <resolver type='mavenLocal' />
-      <resolver type='mavenCentral' />
-      <resolver type='mavenRepo' root='http://oss.sonatype.org/content/groups/public/' name='http://oss.sonatype.org/content/groups/public/' m2compatbile='true' />
-    </resolvers>
-    <dependency group='org.easyb' name='easyb' version='0.9.7' conf='build' transitive='true' />
-  </dependencies>
+  <dependencies />
   <behavior />
 </plugin>

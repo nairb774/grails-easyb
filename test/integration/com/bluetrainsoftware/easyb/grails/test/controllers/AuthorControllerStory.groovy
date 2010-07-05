@@ -2,7 +2,7 @@ package com.bluetrainsoftware.easyb.grails.test.controllers;
 
 import com.bluetrainsoftware.easyb.grails.test.domain.*;
 
-scenario "Controller automatically injected based on test package and name", {
+scenario "Controller automatically injected based on class package and name", {
     given "a mocked domain of authors", {
         mockDomain(Author, [new Author(name: 'Terry'), new Author(name: 'Ernest')])
     }

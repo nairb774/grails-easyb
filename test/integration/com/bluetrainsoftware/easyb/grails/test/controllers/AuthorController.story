@@ -1,16 +1,9 @@
 package com.bluetrainsoftware.easyb.grails.test.controllers;
 
-import com.bluetrainsoftware.easyb.grails.test.domain.*;
-
-// this should pick up the controller automatically as it is named the same and in the same package
-
-scenario "We should be able to mock the controller", {
+scenario "controller automatically injected based on class package and name", {
 	given "a mocked domain of authors", {
-		new Author(name:'Terry').save()
-        new Author(name:'Ernest').save()
-	}
-	and "we have a controller", {
-	    controller = new AuthorController()
+		new com.bluetrainsoftware.easyb.grails.test.domain.Author(name:'Terry').save()
+        new com.bluetrainsoftware.easyb.grails.test.domain.Author(name:'Ernest').save()
 	}
 	when "when we make a request of the controller", {
 		authors = controller.list()		
