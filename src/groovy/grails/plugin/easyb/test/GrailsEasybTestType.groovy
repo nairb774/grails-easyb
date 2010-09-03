@@ -8,6 +8,7 @@ import grails.plugin.easyb.test.listener.GrailsEasybListener
 import grails.plugin.easyb.test.report.EasybReportsFactory
 import org.easyb.Configuration
 import org.easyb.domain.BehaviorFactory
+import org.easyb.domain.GroovyShellConfiguration
 
 public class GrailsEasybTestType extends GrailsTestTypeSupport {
 
@@ -47,7 +48,7 @@ public class GrailsEasybTestType extends GrailsTestTypeSupport {
     protected GrailsTestTypeResult doRun(GrailsTestEventPublisher grailsTestEventPublisher) {
         def easybListener = new GrailsEasybListener(grailsTestEventPublisher, createEasybReportsFactory(), createSystemOutAndErrSwapper(), this)
         def easybRunner = new BehaviorRunner(new Configuration(), easybListener)
-        easybRunner.runBehaviors(BehaviorRunner.getBehaviors(easybFiles as String[]))
+        easybRunner.runBehaviors(BehaviorRunner.getBehaviors(new GroovyShellConfiguration(getTestClassLoader(), [:]), easybFiles as String[]))
         return new GrailsEasybTestTypeResult(easybListener)
     }
 
